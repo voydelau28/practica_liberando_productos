@@ -1,0 +1,29 @@
+replicaCount: 2
+
+image:
+  repository: voydelau28/simple-server
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "512Mi"
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: simple-server.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
